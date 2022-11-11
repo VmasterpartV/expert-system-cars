@@ -47,7 +47,7 @@ export default {
   },
 
   env: {
-    BASE_API_URL: process.env.API_URL || 'http://masterpart.pythonanywhere.com'
+    BASE_API_URL: process.env.API_URL || 'https://masterpart.pythonanywhere.com'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
