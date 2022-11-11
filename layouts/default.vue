@@ -1,13 +1,15 @@
 <template>
   <div>
     <nav
-      class="navbar header has-shadow is-primary"
+      class="navbar header has-shadow is-info"
       role="navigation"
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="~assets/buefy.png" alt="Buefy" height="28" />
+        <a class="navbar-item ml-6 p-5" href="/">
+          <span class="title is-4 has-text-white"
+            >Sistema experto en automóviles</span
+          >
         </a>
 
         <div class="navbar-burger">
@@ -23,27 +25,18 @@
         <Nuxt />
       </div>
     </section>
+
+    <div class="notification is-info">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content has-text-centered">
+            <p>
+              <strong>Instituto Tecnológico de Mérida</strong> &copy;
+              2022
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'DefaultLayout',
-  data() {
-    return {
-      items: [
-        {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' },
-        },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' },
-        },
-      ],
-    }
-  },
-}
-</script>
