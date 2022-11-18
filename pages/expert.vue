@@ -70,7 +70,7 @@
       </b-field>
       <br />
       <div class="buttons is-centered">
-        <b-button type="is-info" @click="reset">
+        <b-button type="is-info" @click="toNormal">
           Nueva consulta
         </b-button>
         <b-button type="is-success" @click="save">
@@ -94,6 +94,11 @@ export default {
   },
   mounted () {
     this.getData()
+    console.log(this.$route.query.array.split(','))
+    this.responses = this.$route.query.array
+      ? this.$route.query.array.split(',')
+      : []
+    this.findCar()
   },
   methods: {
     async getData () {
@@ -122,11 +127,6 @@ export default {
       const data = await this.$store.dispatch('findCar', payload)
       this.response = data
       console.log(data)
-    },
-    reset () {
-      this.response = {}
-      this.responses = []
-      this.file = null
     },
     async save () {
       try {
@@ -157,13 +157,16 @@ export default {
           message: '¡Respuesta guardada correctamente!',
           type: 'is-success'
         })
-        this.reset()
+        this.toNormal()
       } catch (error) {
         this.$buefy.toast.open({
           message: 'Error al guardar la respuesta :(',
           type: 'is-danger'
         })
       }
+    },
+    toNormal () {
+      this.$router.push('/')
     }
   }
 }

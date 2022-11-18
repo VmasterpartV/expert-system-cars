@@ -161,7 +161,7 @@ export default {
       this.responses = []
     },
     toExpert () {
-      this.$router.push('/expert')
+      this.$router.push('/expert?array=' + this.responses)
     }
   }
 }
