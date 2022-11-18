@@ -40,44 +40,54 @@
       </div>
     </div>
     <br />
-    <div v-if="validResponse()">
-      <b-field label="Respuesta" horizontal>
-        <b-input v-model="response.response" type="textarea"> </b-input>
-      </b-field>
-      <b-field label="Explicación" horizontal>
-        <b-input v-model="response.reason" type="textarea"> </b-input>
-      </b-field>
-      <b-field
-        label="Imagen"
-        horizontal
-        class="file is-primary"
-        :class="{ 'has-name': !!file }"
-      >
-        <b-upload v-model="file" class="file-label">
-          <span class="file-cta">
-            <b-icon class="file-icon" icon="upload"></b-icon>
-            <span class="file-label">Click to upload</span>
-          </span>
-          <span class="file-name" v-if="file">
-            {{ file.name }}
-          </span>
-        </b-upload>
-      </b-field>
-      <b-field v-if="response.image && !file" label="" horizontal>
-        <a :href="$store.state.domain + response.image" target="_blank">
-          Ver imagen actual
-        </a>
-      </b-field>
-      <br />
-      <div class="buttons is-centered">
-        <b-button type="is-info" @click="toNormal">
-          Nueva consulta
-        </b-button>
-        <b-button type="is-success" @click="save">
-          Guardar
-        </b-button>
+    <ValidationObserver ref="Form" v-slot="{ handleSubmit }">
+      <div v-if="validResponse()">
+        <b-input-with-validation
+          v-model="response.response"
+          label="Respuesta"
+          horizontal
+          rules="required"
+          type="textarea"
+        />
+        <b-input-with-validation
+          v-model="response.reason"
+          label="Explicación"
+          horizontal
+          rules="required"
+          type="textarea"
+        />
+        <b-field
+          label="Imagen"
+          horizontal
+          class="file is-primary"
+          :class="{ 'has-name': !!file }"
+        >
+          <b-upload v-model="file" class="file-label" required>
+            <span class="file-cta">
+              <b-icon class="file-icon" icon="upload"></b-icon>
+              <span class="file-label">Click to upload</span>
+            </span>
+            <span class="file-name" v-if="file">
+              {{ file.name }}
+            </span>
+          </b-upload>
+        </b-field>
+        <b-field v-if="response.image && !file" label="" horizontal>
+          <a :href="$store.state.domain + response.image" target="_blank">
+            Ver imagen actual
+          </a>
+        </b-field>
+        <br />
+        <div class="buttons is-centered">
+          <b-button type="is-info" @click="toNormal">
+            Nueva consulta
+          </b-button>
+          <b-button type="is-success" @click="handleSubmit(save)">
+            Guardar
+          </b-button>
+        </div>
       </div>
-    </div>
+    </ValidationObserver>
   </section>
 </template>
 
@@ -94,11 +104,13 @@ export default {
   },
   mounted () {
     this.getData()
-    console.log(this.$route.query.array.split(','))
-    this.responses = this.$route.query.array
-      ? this.$route.query.array.split(',')
-      : []
-    this.findCar()
+    if (this.$route.query.array) {
+      console.log(this.$route.query.array.split(','))
+      this.responses = this.$route.query.array
+        ? this.$route.query.array.split(',')
+        : []
+      this.findCar()
+    }
   },
   methods: {
     async getData () {
