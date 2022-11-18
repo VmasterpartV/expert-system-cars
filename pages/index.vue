@@ -159,6 +159,7 @@ export default {
     reset () {
       this.response = {}
       this.responses = []
+      this.isActive = false
     },
     toExpert () {
       this.$router.push('/expert?array=' + this.responses)
