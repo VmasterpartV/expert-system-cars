@@ -71,7 +71,7 @@
         </div>
         <div v-else class="column is-3 is-offset-1">
           <b-image
-            :src="require('@/assets/coche_enfermo.webp')"
+            :src="require('@/assets/no_car.jpeg')"
             alt="Car picture"
           >
           </b-image>
